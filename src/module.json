@@ -19,7 +19,7 @@
   "minimumCoreVersion": "0.7.4",
   "compatibleCoreVersion": "0.7.7",
   "url": "https://github.com/wildj79/foundryvtt-logo-switcher",
-  "manifest": "https://raw.githubusercontent.com/wildj79/foundryvtt-logo-switcher/development/src/module.json",
+  "manifest": "https://raw.githubusercontent.com/wildj79/foundryvtt-logo-switcher/master/src/module.json",
   "download": "https://github.com/wildj79/foundryvtt-logo-switcher/releases/download/v0.1.0/logo-switcher-v0.1.0.zip",
   "license": "",
   "readme": "",
