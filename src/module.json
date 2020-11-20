@@ -8,7 +8,7 @@
   "esmodules": [
     "logo-switcher.js"
   ],
-  "styles": ["logo-switcher.css"],
+  "styles": [],
   "languages": [
     {
       "lang": "en",
