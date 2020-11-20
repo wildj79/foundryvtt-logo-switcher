@@ -1,0 +1,23 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="form-group">
+        <p class="notification warning">
+            {{localize "LOGO_SWITCHER.Menu.WorkInProgress"}}
+        </p>
+    </div>
+    <div class="form-group">
+        <label for="logoImage">{{localize "LOGO_SWITCHER.Menu.LogoImagePath"}}</label>
+        <input type="text" readonly value="{{logoImage}}" name="logoImage" id="logoImage" />
+        {{filePicker type="image" target="logoImage"}}
+    </div>
+    <div class="form-group">
+        <p class="notes">{{localize "LOGO_SWITCHER.Menu.Notes"}}</p>
+    </div>
+    <div class="form-group">
+        <button type="submit" name="submit">
+            <i class="fas fa-save"></i> {{localize "Submit"}}
+        </button>
+        <button type="button" name="reset">
+            <i class="fas fa-sync"></i> {{localize "Reset"}}
+        </button>
+    </div>
+</form>

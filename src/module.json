@@ -1,0 +1,28 @@
+{
+  "name": "logo-switcher",
+  "title": "Foundry Logo Switcher",
+  "description": "Allows a GM to change the logo that appears in the top left portion of the screen.",
+  "version": "0.1.0",
+  "author": "James Allred",
+  "scripts": [],
+  "esmodules": [
+    "logo-switcher.js"
+  ],
+  "styles": ["logo-switcher.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "minimumCoreVersion": "0.7.4",
+  "compatibleCoreVersion": "0.7.7",
+  "url": "https://github.com/wildj79/foundryvtt-logo-switcher",
+  "manifest": "https://raw.githubusercontent.com/wildj79/foundryvtt-logo-switcher/development/src/module.json",
+  "download": "https://github.com/wildj79/foundryvtt-logo-switcher/releases/download/v0.1.0/logo-switcher-v0.1.0.zip",
+  "license": "",
+  "readme": "",
+  "bugs": "",
+  "changelog": ""
+}

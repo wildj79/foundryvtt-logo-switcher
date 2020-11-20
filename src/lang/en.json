@@ -1,0 +1,15 @@
+{
+    "LOGO_SWITCHER": {
+        "Menu": {
+            "Notes": "The Logo Switcher currently sets the height of the logo's <img> tag to 50px. This will scale the width accordingly. The module will change the left postiion of the Scene Navigation so that it should maintain a constant 10px gap between the edge of the image and the navigation.",
+            "LogoImagePath": "Logo Image Path",
+            "Settings": {
+                "Title": "Logo Switcher Settings",
+                "Label": "Configure Logo Switcher",
+                "Hint": "Configuration settings for the Foundry Logo Switcher"
+            },
+            "Title": "Foundry Logo Switcher Settings",
+            "WorkInProgress": "WIP: This project is a work in progress. There will be more settings in the future."
+        }
+    }
+}
