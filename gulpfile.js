@@ -5,15 +5,8 @@ const chalk = require('chalk');
 const archiver = require('archiver');
 const stringify = require('json-stringify-pretty-compact');
 const typescript = require('typescript');
-
 const ts = require('gulp-typescript');
-const less = require('gulp-less');
-const sass = require('gulp-sass');
-const git = require('gulp-git');
-
 const argv = require('yargs').argv;
-
-sass.compiler = require('sass');
 
 function getConfig() {
 	const configPath = path.resolve(process.cwd(), 'foundryconfig.json');
@@ -140,30 +133,11 @@ function buildTS() {
 }
 
 /**
- * Build Less
- */
-function buildLess() {
-	return gulp.src('src/*.less').pipe(less()).pipe(gulp.dest('dist'));
-}
-
-/**
- * Build SASS
- */
-function buildSASS() {
-	return gulp
-		.src('src/*.scss')
-		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest('dist'));
-}
-
-/**
  * Copy static files
  */
 async function copyFiles() {
 	const statics = [
 		'lang',
-		'fonts',
-		'assets',
 		'templates',
 		'module.json',
 		'system.json',
@@ -186,13 +160,27 @@ async function copyFiles() {
  */
 function buildWatch() {
 	gulp.watch('src/**/*.ts', { ignoreInitial: false }, buildTS);
-	gulp.watch('src/**/*.less', { ignoreInitial: false }, buildLess);
-	gulp.watch('src/**/*.scss', { ignoreInitial: false }, buildSASS);
 	gulp.watch(
 		['src/fonts', 'src/lang', 'src/templates', 'src/*.json'],
 		{ ignoreInitial: false },
 		copyFiles
 	);
+}
+
+async function copyReadmeAndLicense() {
+	const statics = ['README.md', 'LICENSE'];
+
+	try {
+		for (const file of statics) {
+			if (fs.existsSync(file)) {
+				await fs.copy(file, path.join('dist', file));
+			}
+		}
+
+		return Promise.resolve();
+	} catch (err) {
+		return Promise.reject(err);
+	}
 }
 
 /********************/
@@ -212,7 +200,6 @@ async function clean() {
 		files.push(
 			'lang',
 			'templates',
-			'assets',
 			'module',
 			`${name}.js`,
 			'module.json',
@@ -461,44 +448,18 @@ function updateManifest(cb) {
 	}
 }
 
-function gitAdd() {
-	return gulp.src('package').pipe(git.add({ args: '--no-all' }));
-}
-
-function gitCommit() {
-	return gulp.src('./*').pipe(
-		git.commit(`v${getManifest().file.version}`, {
-			args: '-a',
-			disableAppendPaths: true,
-		})
-	);
-}
-
-function gitTag() {
-	const manifest = getManifest();
-	return git.tag(
-		`v${manifest.file.version}`,
-		`Updated to ${manifest.file.version}`,
-		(err) => {
-			if (err) throw err;
-		}
-	);
-}
-
-const execGit = gulp.series(gitAdd, gitCommit, gitTag);
-
-const execBuild = gulp.parallel(buildTS, buildLess, buildSASS, copyFiles);
+const execBuild = gulp.parallel(buildTS, copyFiles);
 
 exports.build = gulp.series(clean, execBuild);
 exports.watch = buildWatch;
 exports.clean = clean;
 exports.link = linkUserData;
-exports.package = packageBuild;
+exports.package = gulp.series(copyReadmeAndLicense, packageBuild);
 exports.update = updateManifest;
 exports.publish = gulp.series(
 	clean,
 	updateManifest,
 	execBuild,
-	packageBuild,
-	execGit
+	copyReadmeAndLicense,
+	packageBuild
 );
